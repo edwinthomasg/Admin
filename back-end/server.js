@@ -2,7 +2,6 @@
 
 const hapi = require("@hapi/hapi");
 const routes = require("./routes/route");
-const { execFile, spawn, exec } = require("child_process");
 require("dotenv").config();
 
 const establishServer = async () => {

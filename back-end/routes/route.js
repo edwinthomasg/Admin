@@ -17,7 +17,9 @@ const routes = (server) => {
             payload: {
                 parse: true,
                 allow: 'multipart/form-data',
-                multipart: { output: 'data' },
+                multipart: { 
+                    output: 'annotated' 
+                },
             }
         }
     })

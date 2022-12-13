@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import axios from "axios"
-import "../styles/style.css"
 
 const FormComponent = () => {
   const selectOptions = ["0","1","2","3 or Greater than"]
@@ -20,7 +19,6 @@ const FormComponent = () => {
   const submitHandler = async(event) => {
     event.preventDefault()
     let data = new FormData(event.target)
-    data.append("fileName", details.resume.replace("C:\\fakepath\\",""))
     await axios.post("http://localhost:4040/registeration", data, {
       "Content-Type": "multipart/form-data"
     })
@@ -28,21 +26,36 @@ const FormComponent = () => {
   const changeHandler = (event) => {
       if(event.target.files)
       {
-        let fileName = event.target.files[0].name
+        let fileName
+        if(event.target.files.length > 1)
+        {
+          fileName = []
+          Array.from(event.target.files).forEach(file => fileName.push(file.name))
+          setDetails((prev) => {
+            return {
+              ...prev,
+              [event.target.name]: fileName
+            }
+          })
+        }
+        else{
+          fileName = event.target.files[0].name
+          setDetails((prev) => {
+            return {
+              ...prev,
+              [event.target.name]: fileName
+            }
+          })
+        }
+      }
+      else{
         setDetails((prev) => {
-          console.log(fileName)
           return {
             ...prev,
-            [event.target.name]: fileName
+            [event.target.name]: event.target.value,
           }
         })
       }
-      setDetails((prev) => {
-        return {
-          ...prev,
-          [event.target.name]: event.target.value,
-        }
-      })
   }
 
   return (
@@ -98,7 +111,7 @@ const FormComponent = () => {
         <input type="email" name="email" value={details.email} onChange={changeHandler}></input>
         <br></br>
         <label>Resume : </label>
-        <input type="file" name="resume" onChange={changeHandler}></input>
+        <input type="file" name="resume" onChange={changeHandler} multiple></input>
         <br></br>
         <input type="submit" value="submit"></input>
       </form>
