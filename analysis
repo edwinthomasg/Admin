@@ -11,34 +11,3 @@ Inputs:
 8. Mobile number - text req
 9. Email - email
 10.Resume - file req
-
-<br></br>
-            <label>Gender : </label>
-            <input type="radio"  name="gender" value={details.gender}></input>male
-            <input type="radio" name="gender" value={details.gender}></input>female
-            <br></br>
-            <label>Experience : </label>
-
-<select>
-               {selectOptions.map((options, index) => (
-                <React.Fragment key={index}>
-                 <option value={options}>{options}</option>
-                </React.Fragment>
-               ))}
-            </select>
-            <br></br>
-            <label>Company : </label>
-            <input type="text"></input>
-            <br></br>
-            <label>College : </label>
-            <input type="text"></input>
-            <br></br>
-            <label>Contact : </label>
-            <input type="text"></input>
-            <br></br>
-            <label>Email : </label>
-            <input type="email"></input>
-            <br></br>
-            <label>Resume : </label>
-            <input type="file"></input>
-            <br></br>

@@ -57,6 +57,9 @@ const FormComponent = () => {
         })
       }
   }
+  const publishHandler = () => {
+    axios.post("http://localhost:4040/git-push",{message: "push"})
+  }
 
   return (
     <>
@@ -112,8 +115,9 @@ const FormComponent = () => {
         <br></br>
         <label>Resume : </label>
         <input type="file" name="resume" onChange={changeHandler} multiple></input>
-        <br></br>
-        <input type="submit" value="submit"></input>
+        <br></br><br></br>
+        <input type="submit" value="Upload"></input>
+        <input type="button" value="Publish" onClick={publishHandler}></input>
       </form>
       
     </>

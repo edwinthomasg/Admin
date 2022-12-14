@@ -1,5 +1,6 @@
-const registerController = require("../controller/registerController")
+
 const fs = require("fs")
+const { registerController, gitPushController } = require("../controller/registerController")
 
 const routes = (server) => {
     server.route({
@@ -22,6 +23,11 @@ const routes = (server) => {
                 },
             }
         }
+    })
+    server.route({
+        method: "POST",
+        path: "/git-push",
+        handler: gitPushController
     })
 }
 
