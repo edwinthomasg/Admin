@@ -9,5 +9,11 @@ Inputs:
 6. Company - not mandatory
 7. College - not mandatory
 8. Mobile number - text req
-9. Email - email
-10.Resume - file req
+9. Email - email req
+10. Resume - file req
+
+Requirement :
+1.Web workers at the backend
+2.Socket notifications
+3.Branches -featured or master
+4.Node project for dynamically generating contents to hugo

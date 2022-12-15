@@ -118,6 +118,12 @@ const FormComponent = () => {
         <br></br><br></br>
         <input type="submit" value="Upload"></input>
         <input type="button" value="Publish" onClick={publishHandler}></input>
+        <br></br><br></br>
+        <input type="button" value="Calculate" onClick={() => {
+          axios.post("http://localhost:4040/cpu", {number : details.age})
+          .then(data => console.log(data))
+          .catch(err => console.log("bad request"))
+        }}></input>
       </form>
       
     </>

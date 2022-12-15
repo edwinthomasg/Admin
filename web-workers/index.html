@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Web Workers</title>
+  </head>
+  <body>
+    <b>Add (1 to 1,000,000) : </b
+    ><input type="button" value="Calculate" onclick="calculateHandler()" />
+    <br /><br />
+    <b>Greet Everyone : </b
+    ><input type="button" value="Display" onclick="display()" />
+
+    <script>
+      function display() {
+        alert("Hi User!!");
+      }
+
+      function calculateHandler() {
+        var worker = new Worker("worker.js");
+        worker.onmessage = (event) => {
+          alert(`From Worker : ${event.data}`);
+        };
+      }
+    </script>
+  </body>
+</html>

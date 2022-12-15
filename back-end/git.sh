@@ -1,7 +1,6 @@
 #!/bin/bash
 cd /home/asplap2005/Desktop/hugo-test
+git checkout -b $1
 git add .
-git status
-git branch
-git commit -m "message commited"
-git push origin main
+git commit -m "files uploaded"
+git push -u origin $1

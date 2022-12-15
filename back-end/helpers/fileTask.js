@@ -23,7 +23,7 @@ const createFile = async(destination, file) => {
         // gitPush(file.filename);
         });
     } else if (textData.includes(path.extname(file.filename))) {
-        await fs.writeFile(destination, file.payload.toString(), () => {
+        await fs.writeFile(destination, file.payload, () => {
             console.log(`${file.filename} written successfully`)
         // gitPush(file.filename);
         });
