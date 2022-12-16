@@ -12,7 +12,19 @@ const establishServer = async () => {
       cors: true,
     },
   });
-
+  const io = require("socket.io")(server.listener,{
+    cors: {
+      origin: "http://localhost:3000"
+    }
+  })
+  io.on("connection", (socket) => {
+    socket.on("online", (data) => {
+      console.log("from client : ",data)
+    })
+    socket.on("gitPublish", (data) => {
+      io.to(socket.id).emit("notification", "your last commit has been succesfully done !!!")
+    })
+  })
   await server.start();
   console.log(`server running (success) ${server.info.uri}`);
   routes(server);

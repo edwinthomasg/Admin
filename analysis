@@ -13,7 +13,7 @@ Inputs:
 10. Resume - file req
 
 Requirement :
-1.Web workers at the backend
+1.Web workers at the backend - done
 2.Socket notifications
-3.Branches -featured or master
+3.Branches -featured or master - done
 4.Node project for dynamically generating contents to hugo

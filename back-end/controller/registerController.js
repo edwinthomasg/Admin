@@ -3,8 +3,8 @@ const path = require("path");
 const os = require("os");
 const createFile = require("../helpers/fileTask");
 const { execFile } = require("child_process");
-const { Worker, workerData } = require("worker_threads");
-const createFeatureBranch = require("../helpers/featureBranch");
+const { Worker } = require("worker_threads");
+const createFeatureBranch = require("../helpers/branch");
 
 const registerController = (req, res) => {
   try {
@@ -48,19 +48,31 @@ const registerController = (req, res) => {
   }
 };
 
-const gitPushController = (req, res) => {
-  let featureBranch = createFeatureBranch()
-  execFile("./git.sh", [featureBranch], (err, stdout, stderr) => {
-    if (err) console.log("Command error : ", err);
-    if (stderr) console.log("Error : ", stderr);
-    if (stdout) console.log(`commited successfully : ${stdout}`);
-  });
-  return res.response("success").code(200);
+let gitPromise = (branch) => {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker("./helpers/git_worker.js")
+    worker.postMessage(branch)
+    worker.on("message", resolve)
+    worker.on("error", reject)
+    worker.on("exit", (code) => console.log(`exited with code : ${code}`))
+  })
+}
+
+const gitPushController = async(req, res) => {
+  try{
+    let branch = (req.payload.branch === "Master") ? "Master" : createFeatureBranch()
+    await gitPromise(branch)
+    return res.response("success").code(200);
+  }
+  catch(err){
+    return res.response("server error").code(500);
+  }
+  
 };
 
 let promise = (num) => {
   return new Promise((resolve, reject) => {
-    const worker = new Worker("./controller/worker.js", { workerData: num });
+    const worker = new Worker("./helpers/worker.js", { workerData: num });
     worker.on("message", (data) => {
       console.log("Data : ", data);
       resolve(data);
@@ -86,4 +98,4 @@ module.exports = {
 
 // process.on('uncaughtException',(err) => console.log("error : ",err))
 
-// git remote set-url origin https://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@github.com/edwinthomasg/hugo-test.git
+// git remote set-url origin https://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@github.com/edwinthomasg/hugo-test.git

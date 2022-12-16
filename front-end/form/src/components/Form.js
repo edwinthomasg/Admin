@@ -1,9 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
+import { io } from "socket.io-client"
 
 const FormComponent = () => {
   const selectOptions = ["0","1","2","3 or Greater than"]
-  
+  const branchOptions = ["Feature", "Master"]
+  const [socket, setSocket] = useState("")
+
   const [details, setDetails] = useState({
     firstName: "",
     lastName: "",
@@ -14,8 +17,23 @@ const FormComponent = () => {
     college: "",
     contact: "",
     email: "",
+    branch: "Feature",
     resume: "",
   })
+  
+  useEffect(() => {
+    setSocket(io("http://localhost:4040"))
+  },[])
+  useEffect(() => {
+    if(socket)
+    {
+      socket.emit("online", "hi server")
+      socket.on("notification", (message) => {
+        alert(message)
+      })
+    }
+  },[socket])
+
   const submitHandler = async(event) => {
     event.preventDefault()
     let data = new FormData(event.target)
@@ -57,8 +75,18 @@ const FormComponent = () => {
         })
       }
   }
+
   const publishHandler = () => {
-    axios.post("http://localhost:4040/git-push",{message: "push"})
+    axios.post("http://localhost:4040/git-push",{branch: details.branch})
+    .then(res => {
+      socket.emit("gitPublish", "published")
+    })
+  }
+
+  const computationHandler = () => {
+    axios.post("http://localhost:4040/cpu", {number : details.age})
+    .then(data => console.log(data))
+    .catch(err => console.log("bad request"))
   }
 
   return (
@@ -115,17 +143,19 @@ const FormComponent = () => {
         <br></br>
         <label>Resume : </label>
         <input type="file" name="resume" onChange={changeHandler} multiple></input>
+        <br></br>
+        <label>Select branch : </label>
+        <select name="branch" onChange={changeHandler}>
+          {branchOptions.map((branch, index) => (<React.Fragment key={index}>
+          <option value={branch}>{branch}</option>
+          </React.Fragment>))}
+        </select>
         <br></br><br></br>
         <input type="submit" value="Upload"></input>
         <input type="button" value="Publish" onClick={publishHandler}></input>
         <br></br><br></br>
-        <input type="button" value="Calculate" onClick={() => {
-          axios.post("http://localhost:4040/cpu", {number : details.age})
-          .then(data => console.log(data))
-          .catch(err => console.log("bad request"))
-        }}></input>
+        <input type="button" value="Calculate" onClick={computationHandler}></input>
       </form>
-      
     </>
   )
 }
