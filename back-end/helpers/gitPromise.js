@@ -7,6 +7,12 @@ const gitPromise = (branch) => {
         worker.on("message", (data) => {
             console.log(data)
         })
+        worker.on("error", (err) => {
+            console.log(err)
+        })
+        worker.on("exit", (code) => {
+            console.log(`exited with code : ${code}`)
+        })
     })
 }
 
