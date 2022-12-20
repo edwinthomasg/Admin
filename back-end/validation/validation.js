@@ -14,6 +14,6 @@ const validate = async(payload, options) => {
         email: joi.string().regex(new RegExp('^[a-z]+[a-z0-9]*[\.]?[a-z0-9]*@[a-z]+.com$')).required()
     })
     return await registerSchema.validateAsync(payload, options)
-} 
+}
 
 module.exports = validate
