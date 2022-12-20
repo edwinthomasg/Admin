@@ -1,4 +1,4 @@
-const { registerController, gitPushController, taskController } = require("../controller/registerController")
+const { directoryController, uploadController, gitPushController } = require("../controller/controller")
 
 const routes = (server) => {
     server.route({
@@ -11,7 +11,7 @@ const routes = (server) => {
     server.route({
         method: "POST",
         path: "/registeration",
-        handler: registerController,
+        handler: uploadController,
         options: {
             payload: {
                 parse: true,
@@ -28,9 +28,9 @@ const routes = (server) => {
         handler: gitPushController
     })
     server.route({
-        method: "POST",
-        path: "/cpu",
-        handler: taskController
+        method: "GET",
+        path: "/directories",
+        handler: directoryController
     })
 }
 
