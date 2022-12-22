@@ -1,7 +1,6 @@
 const { readdir } = require("fs").promises;
 
 const getDirectories = (dirName) => {
-    console.log(dirName)
   return new Promise(async (resolve, reject) => {
     const files = await readdir(dirName, { withFileTypes: true });
     let directories = ["root"];

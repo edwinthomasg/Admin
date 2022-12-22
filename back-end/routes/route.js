@@ -1,4 +1,4 @@
-const { directoryController, uploadController, gitPushController } = require("../controller/controller")
+const { directoryController, uploadController, gitPushController, gitBranchController, sitePreviewController } = require("../controller/controller")
 
 const routes = (server) => {
     server.route({
@@ -35,10 +35,12 @@ const routes = (server) => {
     server.route({
         method: "POST",
         path: "/git-branch",
-        handler: (req, res) => {
-            console.log(req.payload)
-            return "ok"
-        }
+        handler: gitBranchController
+    })
+    server.route({
+        method: "GET",
+        path: "/site-preview",
+        handler: sitePreviewController
     })
 }
 

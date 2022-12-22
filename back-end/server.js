@@ -1,6 +1,7 @@
 "use strict";
 
 const hapi = require("@hapi/hapi");
+const generateData = require("./helpers/dynamicData");
 const routes = require("./routes/route");
 require("dotenv").config();
 
@@ -28,7 +29,7 @@ const establishServer = async () => {
   await server.start();
   console.log(`server running (success) ${server.info.uri}`);
   routes(server);
-
 };
 
 establishServer();
+generateData()

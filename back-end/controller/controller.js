@@ -1,4 +1,3 @@
-// const validate = require("../validation/validation");
 const path = require("path");
 const os = require("os");
 const createFile = require("../helpers/fileTask");
@@ -6,6 +5,8 @@ const createFeatureBranch = require("../helpers/branch");
 const { hugoContentSource } = require("../constants/constant");
 const getDirectories = require("../helpers/directory");
 const gitWorkFlow = require("../helpers/gitWorkFlow");
+const switchBranch = require("../helpers/switchBranch");
+const showSitePreview = require("../helpers/siteDemo");
 
 const uploadController = (req, res) => {
   const { directory, files } = req.payload;
@@ -45,7 +46,8 @@ const uploadController = (req, res) => {
 const gitPushController = async (req, res) => {
   try {
     let branch =
-      req.payload.branch === "Master" ? "Master" : createFeatureBranch();
+      req.payload.branch === "Master" ? "main" : req.payload.branch;
+      console.log("publish branch : ",branch)
     await gitWorkFlow(branch); //changes
     return res.response("success").code(200);
   } catch (err) {
@@ -64,12 +66,28 @@ const directoryController = async (req, res) => {
   }
 };
 
+const gitBranchController = (req, res) => {
+  console.log(req.payload)
+  let {branch} = req.payload
+  const currentBranch = switchBranch(branch, path.join(os.homedir(), "/Desktop/hugo-project"))
+  return res.response({currentBranch}).code(200)
+}
+
+const sitePreviewController = async(req, res) => {
+  console.log("start")
+  const response = await showSitePreview(path.join(os.homedir(), process.env.HUGO_SITE_PATH))
+  console.log("end task : ",response)
+  return "live demo running"
+}
+
 module.exports = {
   uploadController,
   gitPushController,
   directoryController,
+  gitBranchController,
+  sitePreviewController
 };
 
 // process.on('uncaughtException',(err) => console.log("error : ",err))
 
-// git remote set-url origin https://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@github.com/edwinthomasg/hugo-project.git
+// git remote set-url origin https://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@github.com/edwinthomasg/hugo-project.git

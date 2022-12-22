@@ -3,7 +3,7 @@ const { execFile } = require("child_process")
 
 const executeShell = (branch) => {
     return new Promise((resolve, reject) => {
-        execFile("./git.sh", [branch], (err, stdout, stderr) => {
+        execFile(`${path.dirname(__dirname)}/executables/git.sh`, [branch], (err, stdout, stderr) => {
             if (err) {
                 console.log("Command error : ", err);
                 reject(err)
