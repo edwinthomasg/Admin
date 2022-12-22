@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/asplap2005/Desktop/hugo-test
+cd /home/asplap2005/Desktop/hugo-project
 if [ $1 == "Master" ]
 then
 git checkout main
