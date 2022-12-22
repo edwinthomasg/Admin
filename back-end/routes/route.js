@@ -10,7 +10,7 @@ const routes = (server) => {
     })
     server.route({
         method: "POST",
-        path: "/registeration",
+        path: "/files",
         handler: uploadController,
         options: {
             payload: {
@@ -31,6 +31,14 @@ const routes = (server) => {
         method: "GET",
         path: "/directories",
         handler: directoryController
+    })
+    server.route({
+        method: "POST",
+        path: "/git-branch",
+        handler: (req, res) => {
+            console.log(req.payload)
+            return "ok"
+        }
     })
 }
 

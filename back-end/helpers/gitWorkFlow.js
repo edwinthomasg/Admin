@@ -1,6 +1,6 @@
 const { Worker } = require("worker_threads")
 
-const gitPromise = (branch) => {
+const gitWorkFlow = (branch) => {
     return new Promise((resolve, reject) => {
         const worker = new Worker("./helpers/gitWorker.js")
         worker.postMessage(branch)
@@ -14,4 +14,4 @@ const gitPromise = (branch) => {
     })
 }
 
-module.exports = gitPromise
+module.exports = gitWorkFlow
