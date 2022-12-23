@@ -1,5 +1,6 @@
 const { parentPort } = require("worker_threads")
 const { execFile } = require("child_process")
+const path = require("path")
 
 const executeShell = (branch) => {
     return new Promise((resolve, reject) => {

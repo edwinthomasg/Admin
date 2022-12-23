@@ -1,4 +1,4 @@
-const { directoryController, uploadController, gitPushController, gitBranchController, sitePreviewController } = require("../controller/controller")
+const { directoryController, uploadController, gitPushController, gitBranchController, sitePreviewController, discardController, generateController } = require("../controller/controller")
 
 const routes = (server) => {
     server.route({
@@ -42,6 +42,17 @@ const routes = (server) => {
         path: "/site-preview",
         handler: sitePreviewController
     })
+    server.route({
+        method: "DELETE",
+        path: "/discard",
+        handler: discardController
+    })
+    server.route({
+        method: "POST",
+        path: "/generate",
+        handler: generateController
+    })
+  
 }
 
 module.exports = routes

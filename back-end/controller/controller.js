@@ -7,6 +7,8 @@ const getDirectories = require("../helpers/directory");
 const gitWorkFlow = require("../helpers/gitWorkFlow");
 const switchBranch = require("../helpers/switchBranch");
 const showSitePreview = require("../helpers/siteDemo");
+const discardChanges = require("../helpers/discard");
+const generateData = require("../helpers/dynamicData");
 
 const uploadController = (req, res) => {
   const { directory, files } = req.payload;
@@ -74,10 +76,17 @@ const gitBranchController = (req, res) => {
 }
 
 const sitePreviewController = async(req, res) => {
-  console.log("start")
   const response = await showSitePreview(path.join(os.homedir(), process.env.HUGO_SITE_PATH))
-  console.log("end task : ",response)
-  return "live demo running"
+  return response
+}
+
+const discardController = (req, res) => {
+  discardChanges(path.join(os.homedir(), hugoContentSource))
+  return "ok"
+}
+const generateController = (req, res) => {
+  generateData()
+  return "ok"
 }
 
 module.exports = {
@@ -85,9 +94,11 @@ module.exports = {
   gitPushController,
   directoryController,
   gitBranchController,
-  sitePreviewController
+  sitePreviewController,
+  discardController,
+  generateController
 };
 
 // process.on('uncaughtException',(err) => console.log("error : ",err))
 
-// git remote set-url origin https://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@github.com/edwinthomasg/hugo-project.git
+// git remote set-url origin https://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@github.com/edwinthomasg/hugo-project.git
