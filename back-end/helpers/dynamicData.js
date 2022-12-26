@@ -3,7 +3,10 @@ const path = require("path")
 
 const generateData = () => {
     execFile(`${path.dirname(__dirname)}/executables/utilities.sh`, (err, stdout, stderr) => {
-        if(err) throw err
+        if(err) {
+            console.log("dynamic error : ",err)
+            throw err
+        }
         if(stderr) console.log("std err : ",stderr)
         console.log("stdout : ",stdout) 
     })

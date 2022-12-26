@@ -77,6 +77,7 @@ const gitBranchController = (req, res) => {
 
 const sitePreviewController = async(req, res) => {
   const response = await showSitePreview(path.join(os.homedir(), process.env.HUGO_SITE_PATH))
+  console.log("res : ",response)
   return response
 }
 
@@ -101,4 +102,4 @@ module.exports = {
 
 // process.on('uncaughtException',(err) => console.log("error : ",err))
 
-// git remote set-url origin https://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@github.com/edwinthomasg/hugo-project.git
+// git remote set-url origin https://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@github.com/edwinthomasg/hugo-project.git
