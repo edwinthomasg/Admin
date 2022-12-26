@@ -8,12 +8,13 @@ const FormComponent = () => {
   const [socket, setSocket] = useState("");
   const [publishBranch, setPublishBranch] = useState("");
   const [preview, setPreview] = useState(false);
+  const [dynamicData, setDynamicData] = useState("")
   const [details, setDetails] = useState({
     directory: "root",
     branch: "Feature",
     files: "",
   });
-
+ if(socket) console.log("socket : ",socket)
   useEffect(() => {
     setSocket(io("http://localhost:4040"));
     axios
@@ -30,6 +31,10 @@ const FormComponent = () => {
       socket.on("notification", (message) => {
         alert(message);
       });
+      socket.on("dynamic", (message) => {
+        console.log("message : ",message)
+        alert(message);
+      })
     }
   }, [socket]);
 
@@ -73,6 +78,11 @@ const FormComponent = () => {
 
   const generateHandler = () => {
     axios.post("http://localhost:4040/generate")
+    .then(res => {
+      setDynamicData(true)
+      console.log("added")
+      socket.emit("contentAdd", "added")
+    })
   }
 
   const viewDemoSite = () => {
