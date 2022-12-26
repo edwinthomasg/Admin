@@ -85,9 +85,9 @@ const discardController = (req, res) => {
   discardChanges(path.join(os.homedir(), hugoContentSource))
   return "ok"
 }
-const generateController = (req, res) => {
-  generateData()
-  return "ok"
+const generateController = async(req, res) => {
+  const status = await generateData()
+  return status
 }
 
 module.exports = {

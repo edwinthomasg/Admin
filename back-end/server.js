@@ -29,7 +29,8 @@ const establishServer = async () => {
   await server.start();
   console.log(`server running (success) ${server.info.uri}`);
   routes(server);
+  await generateData()
 };
 
 establishServer();
-generateData()
+
