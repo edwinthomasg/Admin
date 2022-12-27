@@ -22,7 +22,4 @@ const createFile = async(destination, file) => {
     }
 };
 
-const deleteFile = () => {
-    // fs.readdir()
-}
 module.exports = createFile

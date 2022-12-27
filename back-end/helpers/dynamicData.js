@@ -19,9 +19,7 @@ const createDynamicData = () => {
 
 const generateData = () => {
     return new Promise(async(resolve, reject) => {
-        console.log("generate called")
         const response = await createDynamicData()
-        console.log("at generate method : ",response)
         resolve(response)
     }) 
 }

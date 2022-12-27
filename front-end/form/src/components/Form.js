@@ -14,7 +14,7 @@ const FormComponent = () => {
     branch: "Feature",
     files: "",
   });
- if(socket) console.log("socket : ",socket)
+
   useEffect(() => {
     setSocket(io("http://localhost:4040"));
     axios
@@ -32,7 +32,6 @@ const FormComponent = () => {
         alert(message);
       });
       socket.on("dynamic", (message) => {
-        console.log("message : ",message)
         alert(message);
       })
     }
@@ -42,7 +41,6 @@ const FormComponent = () => {
     axios
       .post("http://localhost:4040/git-branch", { branch: details.branch })
       .then((response) => {
-        console.log(response.data);
         setPublishBranch(response.data.currentBranch);
       });
   }, [details.branch]);
@@ -74,20 +72,20 @@ const FormComponent = () => {
   
   const discardHandler = () => {
     axios.delete("http://localhost:4040/discard")
+    .then(() => {
+      console.log("succesfully discarded the changes !!")
+    })
   }
 
   const generateHandler = () => {
     axios.post("http://localhost:4040/generate")
     .then(res => {
-      setDynamicData(true)
-      console.log("added")
       socket.emit("contentAdd", "added")
     })
   }
 
   const viewDemoSite = () => {
     axios.get("http://localhost:4040/site-preview").then((response) => {
-      console.log("all set for demo");
       setPreview(true);
     });
   };
@@ -110,7 +108,6 @@ const FormComponent = () => {
 
   return (
     <>
-      {console.log("component rendered")}
       <form onSubmit={submitHandler}>
         <br></br>
         <label>Select branch : </label>

@@ -1,7 +1,6 @@
 const path = require("path");
 const os = require("os");
 const createFile = require("../helpers/fileTask");
-const createFeatureBranch = require("../helpers/branch");
 const { hugoContentSource } = require("../constants/constant");
 const getDirectories = require("../helpers/directory");
 const gitWorkFlow = require("../helpers/gitWorkFlow");
