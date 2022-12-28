@@ -1,6 +1,7 @@
 const {execFile} = require("child_process")
 const path = require("path")
 
+// RUN LOCAL DEVELOPMENT SERVER OF HUGO SITE
 const runHugoSite = (source) => {
     return new Promise((resolve, reject) => {
             setImmediate(() => {

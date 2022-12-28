@@ -1,0 +1,38 @@
+body{
+    background-color: white;
+}
+.uploadForm{
+    color: black
+}
+.info{
+    position: relative;
+    top: 5px;
+    left: 2px;
+}
+input[type=button]{
+    margin-right: 10px;
+}
+.publishButton{
+    background-color: green;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+}
+.discardButton{
+    background-color: red;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+}
+.previewButton{
+    background-color: goldenrod;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+}
+.goLiveButton{
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+}

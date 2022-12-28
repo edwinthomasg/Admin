@@ -2,6 +2,7 @@ const {execFile} = require("child_process")
 const createFeatureBranch = require("../helpers/branch")
 const path = require("path")
 
+// CREATE BRANCH FROM SHELL SCRIPT
 const switchBranch = (branch, source) => {
     branch = branch === "Master" ? "Master" : createFeatureBranch()
     execFile(`${path.dirname(__dirname)}/executables/switch.sh`,[branch, source], (err, stdout, stderr) => {

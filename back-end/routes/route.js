@@ -1,5 +1,6 @@
 const { directoryController, uploadController, gitPushController, gitBranchController, sitePreviewController, discardController, generateController } = require("../controller/controller")
 
+// CONFIGURING ROUTES
 const routes = (server) => {
     server.route({
         method: "GET",
@@ -52,7 +53,6 @@ const routes = (server) => {
         path: "/generate",
         handler: generateController
     })
-  
 }
 
 module.exports = routes

@@ -2,6 +2,7 @@ const { parentPort } = require("worker_threads")
 const { execFile } = require("child_process")
 const path = require("path")
 
+// RUN GIT PUSH FROM SHELL SCRIPT
 const executeShell = (branch) => {
     return new Promise((resolve, reject) => {
         execFile(`${path.dirname(__dirname)}/executables/git.sh`, [branch], (err, stdout, stderr) => {

@@ -1,6 +1,7 @@
 const { execFile } = require("child_process")
 const path = require("path")
  
+// RUN UTILITIES TO GENERATE MARKDOWN FILES DYNAMICALLY
 const createDynamicData = () => {
     return new Promise((resolve, reject) => {
        setImmediate(() => {

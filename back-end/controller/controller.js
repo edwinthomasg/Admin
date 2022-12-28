@@ -9,6 +9,7 @@ const showSitePreview = require("../helpers/siteDemo");
 const discardChanges = require("../helpers/discard");
 const generateData = require("../helpers/dynamicData");
 
+// UPLOADING HUGO SITE FILES TO SPECIFIED SECTION
 const uploadController = (req, res) => {
   const { directory, files } = req.payload;
   try {
@@ -44,12 +45,11 @@ const uploadController = (req, res) => {
   }
 };
 
+// PUSH THE CHANGES TO GIT ON SPECIFIED BRANCH
 const gitPushController = async (req, res) => {
   try {
-    let branch =
-      req.payload.branch === "Master" ? "main" : req.payload.branch;
-      console.log("publish branch : ",branch)
-    await gitWorkFlow(branch); //changes
+    let branch = req.payload.branch === "Master" ? "main" : req.payload.branch;
+    await gitWorkFlow(branch);
     return res.response("success").code(200);
   } catch (err) {
     console.log(err);
@@ -57,6 +57,7 @@ const gitPushController = async (req, res) => {
   }
 };
 
+// READ DIRECTORIES FROM HUGO CONTENT FOLDER
 const directoryController = async (req, res) => {
   try {
     const dirName = path.join(os.homedir(), hugoContentSource);
@@ -67,23 +68,26 @@ const directoryController = async (req, res) => {
   }
 };
 
+// SWITCH THE BRANCH EITHER FEATURE OR MAIN
 const gitBranchController = (req, res) => {
-  console.log(req.payload)
   let {branch} = req.payload
   const currentBranch = switchBranch(branch, path.join(os.homedir(), "/Desktop/hugo-project"))
   return res.response({currentBranch}).code(200)
 }
 
+// RUN PREVIEW HUGO SITE
 const sitePreviewController = async(req, res) => {
   const response = await showSitePreview(path.join(os.homedir(), process.env.HUGO_SITE_PATH))
-  console.log("res : ",response)
   return response
 }
 
+// DISCARD THE CHANGES
 const discardController = (req, res) => {
   discardChanges(path.join(os.homedir(), hugoContentSource))
   return "ok"
 }
+
+// GENERATE DYNAMIC DATA
 const generateController = async(req, res) => {
   const status = await generateData()
   return status

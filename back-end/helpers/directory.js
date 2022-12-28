@@ -1,5 +1,6 @@
 const { readdir } = require("fs").promises;
 
+// GET ALL THE SECTION NAMES FROM HUGO CONTENT FOLDER
 const getDirectories = (dirName) => {
   return new Promise(async (resolve, reject) => {
     const files = await readdir(dirName, { withFileTypes: true });

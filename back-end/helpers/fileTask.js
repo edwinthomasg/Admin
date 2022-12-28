@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { bufferData, textData, imageData } = require("../constants/constant");
 
+// WRITE FILE TO THE DESTINATION
 const createFile = async(destination, file) => {
     if (bufferData.includes(path.extname(file.filename))) {
         await fs.writeFile(destination, file.payload.toString(), () => {

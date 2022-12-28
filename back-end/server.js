@@ -1,6 +1,7 @@
 "use strict";
 
 const hapi = require("@hapi/hapi");
+const startCms = require("./helpers/cms");
 const generateData = require("./helpers/dynamicData");
 const routes = require("./routes/route");
 require("dotenv").config();
@@ -29,10 +30,14 @@ const establishServer = async () => {
       io.to(socket.id).emit("dynamic", "hugo content has been added successfully")
     })
   })
+  // RUN BACK-END SERVER
   await server.start();
   console.log(`server running (success) ${server.info.uri}`);
   routes(server);
+  // GENERATE DATA DYNAMICALLY
   await generateData()
+  // RUN FRONT-END APPLICATION
+  await startCms()
 };
 
 establishServer();

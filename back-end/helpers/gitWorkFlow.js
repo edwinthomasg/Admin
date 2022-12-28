@@ -1,5 +1,6 @@
 const { Worker } = require("worker_threads")
 
+// FORK WORKER THREAD TO EXECUTE GIT PUSH
 const gitWorkFlow = (branch) => {
     return new Promise((resolve, reject) => {
         const worker = new Worker("./helpers/gitWorker.js")
