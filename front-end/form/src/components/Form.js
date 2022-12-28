@@ -111,7 +111,6 @@ const FormComponent = () => {
   // DISCARD THE CHANGES TO SERVER
   const discardHandler = () => {
     axios.delete("http://localhost:4040/discard").then(() => {
-      console.log("succesfully discarded the changes !!");
       setStatus(true);
       setTitle("Hugo Site")
       setType("error")
@@ -141,7 +140,7 @@ const FormComponent = () => {
 
   // LOAD IFRAME TO SHOW PREVIEW
   const showIframe = () => {
-    if (preview) {
+    if (preview === true) {
       return (
         <>
           <iframe
@@ -252,7 +251,7 @@ const FormComponent = () => {
             </Item>
           </Grid>
           <Grid item xs={8}>
-            <Item>{preview && showIframe()}</Item>
+            <Item>{preview === true && showIframe()}</Item>
           </Grid>
         </Grid>
       </Box>
